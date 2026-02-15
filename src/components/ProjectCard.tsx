@@ -63,7 +63,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, index }) => {
 
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <h3 className="text-2xl font-serif">{project.title}</h3>
+          <h3 className="text-2xl font-serif text-zinc-900 dark:text-zinc-100">
+            {project.title}
+          </h3>
           <span className="text-zinc-300 dark:text-zinc-700 text-3xl font-serif">
             0{project.id}
           </span>
