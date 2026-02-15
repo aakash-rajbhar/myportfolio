@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>aakash-portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      /* Hide default cursor globally */
+      @media (pointer: fine) {
+        * {
+          cursor: none !important;
+        }
+      }
+
+      body {
+        font-family: "Inter", sans-serif;
+        scroll-behavior: smooth;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #555;
+      }
+
+      .custom-cursor {
+        pointer-events: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background-color: white;
+        z-index: 10000;
+        mix-blend-mode: difference;
+        will-change: transform;
+        display: none;
+        transform-origin: center center;
+      }
+
+      @media (pointer: fine) {
+        .custom-cursor {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <div id="cursor" class="custom-cursor"></div>
+    <script>
+      const cursor = document.getElementById("cursor");
+
+      let mouseX = 0;
+      let mouseY = 0;
+      let cursorX = 0;
+      let cursorY = 0;
+      let currentScale = 1;
+      let targetScale = 1;
+
+      document.addEventListener("mousemove", (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+      });
+
+      function animateCursor() {
+        // Smooth movement using interpolation
+        cursorX += (mouseX - cursorX) * 0.15;
+        cursorY += (mouseY - cursorY) * 0.15;
+
+        // Smooth scale transition
+        currentScale += (targetScale - currentScale) * 0.12;
+
+        // Apply both in a single transform to prevent jumping
+        cursor.style.transform = `translate3d(${cursorX - 10}px, ${cursorY - 10}px, 0) scale(${currentScale})`;
+
+        requestAnimationFrame(animateCursor);
+      }
+      animateCursor();
+
+      document.addEventListener("mousedown", () => {
+        targetScale = 0.7;
+      });
+
+      document.addEventListener("mouseup", () => {
+        // If still hovering an interactable, return to hover scale instead of 1
+        const hovered = document.querySelector(":hover");
+        if (hovered && hovered.closest('a, button, input, [role="button"]')) {
+          targetScale = 2.5;
+        } else {
+          targetScale = 1;
+        }
+      });
+
+      // Use event delegation for efficient hover detection
+      document.addEventListener("mouseover", (e) => {
+        const interactable = e.target.closest(
+          'a, button, input, [role="button"]',
+        );
+        if (interactable) {
+          targetScale = 2.5;
+        }
+      });
+
+      document.addEventListener("mouseout", (e) => {
+        const interactable = e.target.closest(
+          'a, button, input, [role="button"]',
+        );
+        if (interactable) {
+          targetScale = 1;
+        }
+      });
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
