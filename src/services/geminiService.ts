@@ -3,7 +3,7 @@ import { GoogleGenAI } from "@google/genai";
 import { PROJECTS, EXPERIENCE, EDUCATION, BIO, SKILLS } from "../constants.tsx";
 
 export const getAIResponse = async (userMessage: string) => {
-  const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+  const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY});
   
   const systemInstruction = `
     You are the AI assistant for Aakash Rajbhar, a Full Stack Developer.
@@ -30,7 +30,7 @@ export const getAIResponse = async (userMessage: string) => {
       config: {
         systemInstruction,
         temperature: 0.7,
-        maxOutputTokens: 200,
+        maxOutputTokens: 400,
       }
     });
 

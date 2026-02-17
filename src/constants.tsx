@@ -74,7 +74,7 @@ export const EDUCATION = [
   {
     degree: "Bachelor of Technology in Information Technology",
     institution: "Guru Gobind Singh Indraprastha University",
-    year: "2021 — 2025",
+    year: "2022 — 2026",
     score: "9.2 CGPA",
     description:
       "Specialized in Information Technology and Computer Science. Core coursework included Data Structures, Algorithms, Operating System, Computer Network and Database Management.",
