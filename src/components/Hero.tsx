@@ -30,7 +30,7 @@ const Hero: React.FC = () => {
   }, []);
 
   return (
-    <div className="flex flex-col-reverse gap-10 md:gap-2 md:flex-row pt-20 items-start">
+    <div className="flex flex-col-reverse gap-10 lg:gap-2 lg:flex-row pt-20 items-start">
       {/* Text Section */}
       <div className="flex-1">
         <motion.div
@@ -99,7 +99,7 @@ const Hero: React.FC = () => {
         initial={{ opacity: 0, y: 40, scale: 0.95 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
-        className="flex-1 rounded-3xl overflow-hidden w-full max-w-sm md:max-w-lg"
+        className="flex-1 rounded-3xl overflow-hidden w-full max-w-xl"
         whileHover={{ scale: 1.05, transition: { duration: 0.3 } }}
       >
         <img
