@@ -40,46 +40,67 @@ interface ChatRequestBody {
 
 export async function POST(req: Request) {
   try {
-    const body: ChatRequestBody = await req.json();
-
-    if (!process.env.GEMINI_API_KEY) {
-      throw new Error("Missing API Key");
-    }
-
-    const genAI = new GoogleGenerativeAI(
-      process.env.GEMINI_API_KEY
-    );
-
-    const model = genAI.getGenerativeModel({
-      model: "gemini-3-flash-preview",
+    // Set timeout for the entire function
+    const timeoutMs = 25000; // 25 seconds (Vercel has 30s limit)
+    const timeoutPromise = new Promise((_, reject) => {
+      setTimeout(() => reject(new Error('Request timeout')), timeoutMs);
     });
 
-    const history = body.messages.map((msg) => ({
-      role: msg.role === "model" ? "model" : "user",
-      parts: [{ text: msg.text }],
-    }));
+    const processRequest = async () => {
+      const body: ChatRequestBody = await req.json();
 
-    const result = await model.generateContent({
-      contents: [
-        ...history.slice(-5),
-        {
-          role: "user",
-          parts: [{ text: `${SYSTEM_INSTRUCTION}\n\n${body.input}` }],
+      if (!process.env.GEMINI_API_KEY) {
+        throw new Error("Missing API Key");
+      }
+
+      const genAI = new GoogleGenerativeAI(
+        process.env.GEMINI_API_KEY
+      );
+
+      // Use the correct model name
+      const model = genAI.getGenerativeModel({
+        model: "gemini-1.5-flash",
+        generationConfig: {
+          maxOutputTokens: 1000,
+          temperature: 0.7,
         },
-      ],
-      systemInstruction: SYSTEM_INSTRUCTION,
-    });
+      });
 
-    const response = result.response.text();
+      const history = body.messages.map((msg) => ({
+        role: msg.role === "model" ? "model" : "user",
+        parts: [{ text: msg.text }],
+      }));
 
-    return NextResponse.json({ text: response });
+      const result = await model.generateContent({
+        contents: [
+          ...history.slice(-5),
+          {
+            role: "user",
+            parts: [{ text: `${SYSTEM_INSTRUCTION}\n\n${body.input}` }],
+          },
+        ],
+        systemInstruction: SYSTEM_INSTRUCTION,
+      });
+
+      const response = result.response.text();
+      return NextResponse.json({ text: response });
+    };
+
+    return await Promise.race([processRequest(), timeoutPromise]);
 
   } catch (error) {
-    console.error(error);
+    console.error('Chat API Error:', error);
+
+    if (error instanceof Error && error.message === 'Request timeout') {
+      return NextResponse.json(
+        { error: "Request timed out. Please try again with a shorter message." },
+        { status: 408 }
+      );
+    }
 
     return NextResponse.json(
-      { error: "AI request failed" },
-      { status: 500 }
+      { error: "AI service is currently unavailable. Please try again later." },
+      { status: 503 }
     );
   }
 }

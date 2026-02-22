@@ -11,7 +11,7 @@ export default function ChatAI() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
   const [messages, setMessages] = useState<
-    { role: "user" | "model"; text: string }[]
+    { role: "user" | "model"; text: string; isError?: boolean }[]
   >([
     {
       role: "model",
@@ -19,6 +19,7 @@ export default function ChatAI() {
     },
   ]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isServiceDown, setIsServiceDown] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,6 +39,9 @@ export default function ChatAI() {
     setIsLoading(true);
 
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 30000); // 30 second timeout
+
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: {
@@ -47,13 +51,38 @@ export default function ChatAI() {
           messages,
           input: userMessage,
         }),
+        signal: controller.signal,
       });
 
-      const data = await res.json();
+      clearTimeout(timeoutId);
 
+      if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.error || "Failed to get response");
+      }
+
+      const data = await res.json();
       setMessages((prev) => [...prev, { role: "model", text: data.text }]);
+      setIsServiceDown(false); // Reset service status on success
     } catch (err) {
-      console.error(err);
+      console.error("Chat error:", err);
+      setIsServiceDown(true);
+      let errorMessage =
+        "I'm currently experiencing technical difficulties. Please try again later or contact Aakash directly.";
+
+      if (err instanceof Error) {
+        if (err.name === "AbortError") {
+          errorMessage =
+            "Request timed out. Please try again with a shorter message.";
+        } else if (err.message.includes("timeout")) {
+          errorMessage = "Request timed out. Please try again.";
+        }
+      }
+
+      setMessages((prev) => [
+        ...prev,
+        { role: "model", text: errorMessage, isError: true },
+      ]);
     } finally {
       setIsLoading(false);
     }
@@ -92,8 +121,12 @@ export default function ChatAI() {
                   <p className="text-xs font-mono font-bold uppercase tracking-widest">
                     Aakash AI
                   </p>
-                  <p className="text-[10px] font-mono opacity-40 uppercase">
-                    Online
+                  <p
+                    className={`text-[10px] font-mono uppercase ${
+                      isServiceDown ? "text-red-500" : "opacity-40"
+                    }`}
+                  >
+                    {isServiceDown ? "Service Issues" : "Online"}
                   </p>
                 </div>
               </div>
@@ -137,10 +170,17 @@ export default function ChatAI() {
                       "p-3 text-sm leading-relaxed",
                       msg.role === "user"
                         ? "bg-ink/5 rounded-2xl rounded-tr-none"
-                        : "bg-bg border border-ink/10 rounded-2xl rounded-tl-none",
+                        : msg.isError
+                          ? "bg-red-50 dark:bg-red-950/30 border border-red-200 dark:border-red-800 rounded-2xl rounded-tl-none"
+                          : "bg-bg border border-ink/10 rounded-2xl rounded-tl-none",
                     )}
                   >
-                    <div className="text-xs">
+                    <div
+                      className={cn(
+                        "text-xs",
+                        msg.isError ? "text-red-600 dark:text-red-400" : undefined,
+                      )}
+                    >
                       <Markdown>{msg.text}</Markdown>
                     </div>
                   </div>
