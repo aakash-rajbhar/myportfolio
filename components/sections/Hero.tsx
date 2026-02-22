@@ -10,7 +10,10 @@ export default function Hero() {
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
 
   return (
-    <section className="min-h-screen flex flex-col justify-center px-8 relative overflow-hidden">
+    <section
+      id="hero"
+      className="min-h-screen flex flex-col justify-center px-8 relative overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto w-full grid md:grid-cols-12 gap-12 items-center">
         <div className="md:col-span-8 z-10">
           <p className="font-mono text-xs tracking-[0.3em] mb-8 opacity-60">

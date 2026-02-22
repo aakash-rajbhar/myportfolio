@@ -31,7 +31,7 @@ export default function Skills() {
   };
 
   return (
-    <section className="py-40 px-8 max-w-7xl mx-auto">
+    <section id="skills" className="py-40 px-8 max-w-7xl mx-auto">
       <SectionHeading number="02">Technical Stack</SectionHeading>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-20">
         {Object.entries(RESUME_DATA.skills).map(([category, items], catIdx) => (

@@ -11,7 +11,9 @@ import ScrollProgress from "../ui/ScrollProgress";
 
 const navItems = [
   { name: "INDEX", href: "/" },
-  { name: "JOURNAL", href: "/blog" },
+  { name: "WORK", href: "/#work" },
+  { name: "SKILLS", href: "/#skills" },
+  { name: "BLOGS", href: "/blog" },
 ];
 
 const MotionLink = motion.create(Link);

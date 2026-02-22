@@ -100,7 +100,7 @@ const ExperienceItem = ({
 
 export default function Work() {
   return (
-    <section className="py-40 px-8 max-w-7xl mx-auto">
+    <section id="work" className="py-40 px-8 max-w-7xl mx-auto">
       <SectionHeading number="01">Selected Work</SectionHeading>
 
       <div className="grid md:grid-cols-2 gap-x-20 gap-y-32">

@@ -4,7 +4,10 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="py-40 px-8 border-t border-ink/10 max-w-7xl mx-auto">
+    <footer
+      id="contact"
+      className="py-40 px-8 border-t border-ink/10 max-w-7xl mx-auto"
+    >
       <div className="grid md:grid-cols-2 gap-20 items-end">
         <div>
           <h2 className="text-[10vw] font-display tracking-tighter leading-none uppercase mb-12">

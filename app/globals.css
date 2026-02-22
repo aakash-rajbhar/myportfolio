@@ -21,6 +21,11 @@
 
 /* Base Styles */
 
+html,
+body {
+  scroll-behavior: smooth;
+}
+
 body {
   @apply bg-bg text-ink font-sans antialiased transition-colors duration-300;
   overflow-x: hidden;
