@@ -1,0 +1,218 @@
+# Building a Full Stack App with React and Node.js
+
+This is a comprehensive guide on building modern full-stack applications with React and Node.js, covering everything from setup to deployment.
+
+## Introduction
+
+Full-stack development has evolved significantly over the past few years. Let me walk you through the best practices and tools available in 2026.
+
+<Callout type="info">
+  This guide assumes you have basic knowledge of JavaScript, React, and Node.js.
+  If you're new to web development, I recommend checking out the fundamentals
+  first.
+</Callout>
+
+## Getting Started
+
+The first step is to set up your development environment. Here's what you'll need:
+
+1. **Node.js** - Runtime environment (v20 or higher)
+2. **npm or pnpm** - Package manager
+3. **VSCode or your favorite editor** - Code editor
+4. **Git** - Version control
+
+Let's initialize a new project:
+
+<CodeBlock language="bash">
+  mkdir my-fullstack-app cd my-fullstack-app npm init -y
+</CodeBlock>
+
+<Callout type="warning">
+  Make sure you're using Node.js 20+ to get access to the latest features and
+  security updates.
+</Callout>
+
+## Backend Setup
+
+Setting up Express.js is straightforward. Install the required dependencies:
+
+<CodeBlock language="bash">
+  npm install express cors dotenv mongoose npm install -D nodemon @types/express
+  typescript
+</CodeBlock>
+
+Now create your first API endpoint:
+
+<CodeBlock language="typescript">
+import express from 'express';
+import cors from 'cors';
+
+const app = express();
+
+app.use(cors());
+app.use(express.json());
+
+app.get('/api/hello', (req, res) => {
+res.json({ message: 'Hello from the backend!' });
+});
+
+app.listen(5000, () => {
+console.log('Server running on http://localhost:5000');
+});
+
+</CodeBlock>
+
+<Callout type="success">
+  Your backend is now ready! You can test it using tools like Postman or curl.
+</Callout>
+
+## Frontend Setup
+
+For the frontend, we'll use React with TypeScript:
+
+<CodeBlock language="bash">
+  npm install react react-dom next typescript npm install -D tailwindcss postcss
+  autoprefixer
+</CodeBlock>
+
+Set up Tailwind CSS and create your first page:
+
+<CodeBlock language="typescript">
+'use client';
+
+import { useEffect, useState } from "react";
+
+export default function Home() {
+  const [data, setData] = useState<string>('');
+
+useEffect(() => {
+fetch('/api/hello')
+.then(res => res.json())
+.then(data => setData(data.message));
+}, []);
+
+return (
+<div>
+<h1>Welcome to Full Stack Development</h1>
+<p>{data}</p>
+</div>
+);
+}
+
+</CodeBlock>
+
+## Database Integration
+
+MongoDB is a great choice for modern applications. Here's how to connect:
+
+<CodeBlock language="typescript">
+import mongoose from 'mongoose';
+
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017/myapp';
+
+export async function connectDB() {
+  try {
+    await mongoose.connect(mongoUri);
+    console.log('MongoDB connected');
+  } catch (error) {
+    console.error('MongoDB connection failed:', error);
+    process.exit(1);
+  }
+}
+</CodeBlock>
+
+<MacWindow title="Terminal Output">
+  MongoDB connected Server running on http://localhost:5000
+</MacWindow>
+
+## Advanced Patterns
+
+There are several patterns you should know when building full-stack apps:
+
+<Callout type="info">
+  Keep your API routes organized by feature. Create folders like `/api/users`,
+  `/api/posts`, etc.
+</Callout>
+
+### Authentication
+
+Always use secure authentication methods:
+
+<CodeBlock language="typescript">
+import jwt from 'jsonwebtoken';
+
+export function generateToken(userId: string) {
+  return jwt.sign({ userId }, process.env.JWT_SECRET || 'secret', {
+    expiresIn: '7d',
+  });
+}
+
+export function verifyToken(token: string) {
+  try {
+    return jwt.verify(token, process.env.JWT_SECRET || 'secret');
+  } catch {
+    return null;
+  }
+}
+</CodeBlock>
+
+## Visual Examples
+
+Here's what a well-structured project looks like:
+
+<ImageFrame
+  src="https://picsum.photos/800/400?random=1"
+  alt="Project structure visualization"
+  caption="A clean and organized project structure helps with maintainability"
+/>
+
+## Video Tutorial
+
+For a visual walkthrough, check out this tutorial:
+
+<YouTubeEmbed videoId="dQw4w9WgXcQ" title="Full Stack Development Guide" />
+
+## Community Insights
+
+See what developers in the community are saying:
+
+<TweetEmbed tweetId="1234567890" />
+
+## Best Practices
+
+<Callout type="success">
+  Always write tests for your critical business logic. Aim for 80%+ code
+  coverage.
+</Callout>
+
+| Practice      | Benefit            | Difficulty |
+| ------------- | ------------------ | ---------- |
+| Type Safety   | Catch errors early | Medium     |
+| Testing       | Confidence in code | Hard       |
+| Linting       | Code consistency   | Easy       |
+| Documentation | Team alignment     | Medium     |
+
+<Callout type="error">
+  Never commit `.env` files or secrets to version control. Always use
+  environment variables.
+</Callout>
+
+## Deployment
+
+When you're ready to deploy, consider these platforms:
+
+- **Vercel** - Best for Next.js frontends
+- **Railway** - Great for backend services
+- **MongoDB Atlas** - Managed database service
+
+## Conclusion
+
+Building full-stack applications is exciting and rewarding. Remember to:
+
+1. Start with a solid foundation
+2. Write clean, maintainable code
+3. Test your code thoroughly
+4. Document as you go
+5. Keep learning and improving
+
+Happy coding! 🚀
