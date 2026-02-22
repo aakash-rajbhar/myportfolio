@@ -61,7 +61,7 @@ export async function POST(req: Request) {
 
     const result = await model.generateContent({
       contents: [
-        ...history,
+        ...history.slice(-5),
         {
           role: "user",
           parts: [{ text: `${SYSTEM_INSTRUCTION}\n\n${body.input}` }],
