@@ -38,15 +38,15 @@ interface ChatRequestBody {
 }
 
 
-export async function POST(req: Request) {
+export async function POST(req: Request): Promise<Response> {
   try {
     // Set timeout for the entire function
     const timeoutMs = 25000; // 25 seconds (Vercel has 30s limit)
-    const timeoutPromise = new Promise((_, reject) => {
+    const timeoutPromise = new Promise<never>((_, reject) => {
       setTimeout(() => reject(new Error('Request timeout')), timeoutMs);
     });
 
-    const processRequest = async () => {
+    const processRequest = async (): Promise<Response> => {
       const body: ChatRequestBody = await req.json();
 
       if (!process.env.GEMINI_API_KEY) {
