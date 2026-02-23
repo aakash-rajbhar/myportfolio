@@ -90,7 +90,7 @@ export function Navbar() {
             initial={{ opacity: 0, x: "100%" }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: "100%" }}
-            className="fixed inset-0 bg-bg z-50 p-8 flex flex-col justify-center items-center gap-12 md:hidden"
+            className="fixed inset-0 w-screen h-screen bg-bg z-9999 p-8 flex flex-col justify-center items-center gap-12 md:hidden"
           >
             <button
               className="absolute top-8 right-8"
