@@ -10,7 +10,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import ScrollProgress from "../ui/ScrollProgress";
 
 const navItems = [
-  { name: "INDEX", href: "/" },
+  { name: "HOME", href: "/" },
   { name: "WORK", href: "/#work" },
   { name: "SKILLS", href: "/#skills" },
   { name: "BLOGS", href: "/blog" },

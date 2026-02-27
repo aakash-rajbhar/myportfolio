@@ -2,12 +2,35 @@
 
 import { motion, useScroll, useTransform } from "motion/react";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 
 export default function Hero() {
   const { scrollY } = useScroll();
 
+  const [time, setTime] = useState<string>(
+    new Date().toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    }),
+  );
+
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const y2 = useTransform(scrollY, [0, 500], [0, -150]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime(
+        new Date().toLocaleTimeString([], {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        }),
+      );
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section
@@ -17,7 +40,7 @@ export default function Hero() {
       <div className="max-w-7xl mx-auto w-full grid md:grid-cols-12 gap-12 items-center">
         <div className="md:col-span-8 z-10">
           <p className="font-mono text-xs tracking-[0.3em] mb-8 opacity-60">
-            BASED IN INDIA / FULL STACK ENGINEER
+            BASED IN INDIA / FULL STACK ENGINEER / {time}
           </p>
 
           <h1 className="text-[15vw] md:text-[12vw] font-display leading-[0.85] tracking-tighter uppercase mb-12">
