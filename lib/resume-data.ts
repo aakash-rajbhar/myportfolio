@@ -38,7 +38,7 @@ export const RESUME_DATA = {
   projects: [
     {
       name: "SecureKeep",
-      image: "/projects/secure-keep.webp",
+      image: "/projects/securekeep.png",
       link: "https://github.com/aakash-rajbhar/SecureKeep-Password-Manager",
       demo: "https://securekeep.vercel.app",
       description: "Full-stack web application for secure credential management with AES-256 encryption.",
@@ -51,7 +51,7 @@ export const RESUME_DATA = {
     },
     {
       name: "Storely",
-      image: "/projects/storely.webp",
+      image: "/projects/storage-app.png",
       link: "https://github.com/aakash-rajbhar/Storage-App",
       demo: "https://storely-web.vercel.app",
       description: "A Google Drive-like cloud storage platform with OTP-based authentication.",
@@ -63,7 +63,7 @@ export const RESUME_DATA = {
     },
     {
       name: "Online Code Editor",
-      image: "/projects/code-editor.webp",
+      image: "/projects/code-editor.png",
       link: "https://github.com/aakash-rajbhar/Online-Code-Editor",
       demo: "https://my-online-code-editor.vercel.app/",
       description: "A web based code editor with a live preview and multi language support to quickly run and test your code. ",
@@ -75,7 +75,7 @@ export const RESUME_DATA = {
     },
     {
       name: "Price Lytic: Price Tracker App",
-      image: "/projects/price-tracker.webp",
+      image: "/projects/price-tracker.png",
       link: "https://github.com/aakash-rajbhar/E-Commerce-Price-Tracker",
       demo: "https://price-lytic.vercel.app/",
       description: "A web application that tracks product prices across e-commerce platforms and sends email alerts for price drops.",
