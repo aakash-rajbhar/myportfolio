@@ -69,12 +69,13 @@ const ExperienceItem = ({
               x: mousePos.x + 20,
               y: mousePos.y - 100,
             }}
+            
             exit={{ opacity: 0, scale: 0.8, rotate: 5 }}
             transition={{
               type: "spring",
-              damping: 20,
-              stiffness: 200,
-              mass: 0.5,
+              damping: 60,
+              stiffness: 300,
+              mass: 0.8,
             }}
             className="fixed md:absolute z-100 pointer-events-none w-80 glass p-6 shadow-2xl"
           >
