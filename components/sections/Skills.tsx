@@ -5,8 +5,6 @@ import { GitHubCalendar } from "react-github-calendar";
 import SectionHeading from "./HeroHeading";
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import Image from "next/image";
-import { Blocks, Code2, ExternalLink } from "lucide-react";
 
 export default function Skills() {
   const [isDark, setIsDark] = useState(
@@ -140,93 +138,6 @@ export default function Skills() {
         </motion.div>
 
         {/* vs code extension  */}
-
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
-          className="mt-60"
-        >
-          <h3 className="text-5xl font-display tracking-tighter uppercase mb-8">
-            TOOLS & EXTENSION
-          </h3>
-          <div className="grid md:grid-cols-[1fr_1.5fr] gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="space-y-8"
-            >
-              <div className="inline-flex items-center gap-3 px-4 py-2 brutal-border bg-ink/5 font-mono text-[10px] uppercase tracking-widest mb-12">
-                <Code2 size={14} /> VS Code Extension
-              </div>
-
-              <h3 className="text-6xl md:text-7xl font-display tracking-tighter uppercase leading-[0.9]">
-                SkyCode <br />
-                <span className="italic font-serif normal-case font-light opacity-40">
-                  Dark Theme
-                </span>
-              </h3>
-
-              <p className="text-xl opacity-60 max-w-md leading-relaxed">
-                A meticulously crafted dark theme for VS Code, designed for long
-                coding sessions. Focused on high legibility, balanced contrast,
-                and a professional aesthetic.
-              </p>
-
-              <div className="flex flex-wrap gap-6 pt-4">
-                <motion.a
-                  href="https://marketplace.visualstudio.com/items?itemName=AakashRajbhar.skycode-dark"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="bg-ink text-bg px-8 py-4 flex items-center gap-3 font-display tracking-widest uppercase text-sm"
-                >
-                  Install Theme <Blocks size={18} />
-                </motion.a>
-
-                <motion.a
-                  href="https://github.com/aakash-rajbhar/vs-code-theme.git"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="brutal-border px-8 py-4 flex items-center gap-3 font-display tracking-widest uppercase text-sm"
-                >
-                  View Source <ExternalLink size={18} />
-                </motion.a>
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              className="relative aspect-video overflow-hidden group bg-ink/5 rounded-xl shadow-xl border border-zinc-300 dark:border-zinc-800"
-            >
-              {/* Mac Window Header */}
-              <div className="absolute top-0 left-0 right-0 h-6 bg-bg/80 backdrop-blur-md border-b border-ink/10 flex items-center px-4 z-10">
-                {/* Traffic Light Buttons */}
-                <div className="flex gap-2">
-                  <span className="w-2 h-2 rounded-full bg-red-500" />
-                  <span className="w-2 h-2 rounded-full bg-yellow-400" />
-                  <span className="w-2 h-2 rounded-full bg-green-500" />
-                </div>
-              </div>
-
-              {/* Image */}
-              <Image
-                src="/projects/theme-preview.webp"
-                alt="vs-code theme"
-                width={1200}
-                height={800}
-                className="w-full h-full object-cover pt-4 group-hover:scale-105 transition-transform duration-700"
-              />
-            </motion.div>
-          </div>
-        </motion.div>
       </div>
     </section>
   );

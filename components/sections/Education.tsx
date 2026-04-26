@@ -7,7 +7,7 @@ import { RESUME_DATA } from "@/lib/resume-data";
 export default function Education() {
   return (
     <section id="education" className="py-40 px-8 max-w-7xl mx-auto">
-      <SectionHeading number="03">Education</SectionHeading>
+      <SectionHeading number="04">Education</SectionHeading>
       <div className="grid md:grid-cols-2 gap-20">
         <div className="space-y-16">
           {RESUME_DATA.education.map((edu, idx) => (

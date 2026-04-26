@@ -1,4 +1,5 @@
 import CustomCursor from "@/components/navigation/CustomCursor";
+import DigitalAssets from "@/components/sections/DigitalAssets";
 import Education from "@/components/sections/Education";
 import Footer from "@/components/sections/Footer";
 import Hero from "@/components/sections/Hero";
@@ -15,6 +16,7 @@ export default function HomePage() {
         <Hero />
         <Work />
         <Skills />
+        <DigitalAssets />
         <Education />
         <ChatAI />
         <Footer />
