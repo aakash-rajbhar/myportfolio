@@ -6,23 +6,41 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { ExternalLink, Download } from "lucide-react";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function DigitalAssets() {
+  const [activeCard, setActiveCard] = useState<string | null>(null);
+
+  const handleCardTap = (title: string) => {
+    if (
+      typeof window === "undefined" ||
+      !window.matchMedia("(max-width: 767px) and (hover: none)").matches
+    ) {
+      return;
+    }
+
+    setActiveCard((current) => (current === title ? null : title));
+  };
+
   return (
     <section id="assets" className="py-40 px-8 max-w-7xl mx-auto">
       <SectionHeading number="03">Digital Assets</SectionHeading>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-20">
-        {DIGITAL_ASSETS.map((asset, idx) => (
-          <motion.article
-            key={asset.title}
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            whileHover={{ y: -8 }}
-            viewport={{ once: true }}
-            transition={{ delay: idx * 0.08, duration: 0.45, ease: "easeOut" }}
-            className="group/card relative aspect-square overflow-hidden rounded-4xl border border-ink/10 bg-bg/80 shadow-[0_24px_90px_-54px_rgba(15,15,15,0.55)] backdrop-blur-xl dark:border-white/10 dark:bg-white/5"
-          >
+        {DIGITAL_ASSETS.map((asset, idx) => {
+          const isOpen = activeCard === asset.title;
+
+          return (
+            <motion.article
+              key={asset.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              whileHover={{ y: -8 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.08, duration: 0.45, ease: "easeOut" }}
+              onClick={() => handleCardTap(asset.title)}
+              className="group/card relative aspect-square overflow-hidden rounded-4xl border border-ink/10 bg-bg/80 shadow-sm backdrop-blur-sm dark:border-white/10 dark:bg-white/5"
+            >
             <div className="absolute inset-0 bg-linear-to-br from-ink/4 via-transparent to-ink/8 opacity-80 transition duration-500 group-hover/card:opacity-100 dark:from-white/5 dark:to-white/8" />
             <div className="absolute inset-px rounded-[calc(2rem-1px)] border border-white/40 opacity-60 transition duration-500 group-hover/card:opacity-100 dark:border-white/10" />
 
@@ -31,8 +49,10 @@ export default function DigitalAssets() {
                 <Image
                   src={asset.image}
                   alt={asset.title}
-                  width={800}
+                  width={500}
                   height={500}
+                  quality={70}
+                  priority={false}
                   className="h-full w-full object-cover transition duration-700 group-hover/card:scale-105"
                 />
 
@@ -45,7 +65,11 @@ export default function DigitalAssets() {
                 </div>
               </div>
 
-              <div className="absolute inset-x-0 bottom-0 z-10 translate-y-[calc(100%-8rem)] bg-linear-to-t from-bg/95 via-bg/78 to-ink/25 p-6 backdrop-blur-xl transition-transform duration-500 ease-out group-hover/card:translate-y-0 dark:border-white/10 dark:from-[#0f0f0f]/98 dark:via-[#0f0f0f]/88 dark:to-[#0f0f0f]/45">
+              <div
+                className={`absolute inset-x-0 bottom-0 z-10 bg-linear-to-t from-bg/95 via-bg/78 to-ink/25 p-6 backdrop-blur-sm transition-transform duration-500 ease-out group-hover/card:translate-y-0 dark:border-white/10 dark:from-[#0f0f0f]/98 dark:via-[#0f0f0f]/88 dark:to-[#0f0f0f]/45 ${
+                  isOpen ? "translate-y-0" : "translate-y-[calc(100%-8rem)]"
+                }`}
+              >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <p className="text-[10px] uppercase tracking-[0.35em] text-ink/95 dark:text-white/45">
@@ -76,12 +100,17 @@ export default function DigitalAssets() {
                     ))}
                   </div>
 
-                  <div className="flex flex-wrap gap-3 pt-1 opacity-0 translate-y-3 transition-all duration-500 group-hover/card:opacity-100 group-hover/card:translate-y-0">
+                  <div
+                    className={`flex flex-wrap gap-3 pt-1 transition-trasform transition-opacity duration-500 group-hover/card:opacity-100 group-hover/card:translate-y-0 ${
+                      isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"
+                    }`}
+                  >
                     {asset.links.primary && (
                       <Link
                         href={asset.links.primary.href}
                         target="_blank"
                         rel="noreferrer"
+                        onClick={(event) => event.stopPropagation()}
                         className="inline-flex items-center gap-2 rounded-full bg-ink px-4 py-2 text-xs font-medium uppercase tracking-[0.28em] text-bg transition duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-ink/20 dark:bg-white dark:text-black"
                       >
                         {asset.links.primary.label}
@@ -94,6 +123,7 @@ export default function DigitalAssets() {
                         href={asset.links.secondary.href}
                         target="_blank"
                         rel="noreferrer"
+                        onClick={(event) => event.stopPropagation()}
                         className="inline-flex items-center gap-2 rounded-full border border-ink/10 bg-bg/80 px-4 py-2 text-xs font-medium uppercase tracking-[0.28em] text-ink/75 transition duration-300 hover:-translate-y-0.5 hover:border-ink/20 hover:bg-ink/4 dark:border-white/10 dark:bg-white/5 dark:text-white/75 dark:hover:bg-white/10"
                       >
                         {asset.links.secondary.label}
@@ -104,8 +134,9 @@ export default function DigitalAssets() {
                 </div>
               </div>
             </div>
-          </motion.article>
-        ))}
+            </motion.article>
+          );
+        })}
       </div>
     </section>
   );
