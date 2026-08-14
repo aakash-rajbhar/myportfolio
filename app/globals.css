@@ -1,0 +1,102 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Dark theme (default) */
+:root {
+  --color-ink: 12 12 14;
+  --color-surface: 20 19 23;
+  --color-surface-hi: 27 26 32;
+  --color-hair: 38 37 43;
+  --color-fg: 242 241 237;
+  --color-muted: 143 141 150;
+  --color-faint: 87 85 93;
+  color-scheme: dark;
+}
+
+/* Light theme override */
+html.light {
+  --color-ink: 246 245 242;
+  --color-surface: 255 255 255;
+  --color-surface-hi: 237 236 231;
+  --color-hair: 222 220 213;
+  --color-fg: 20 19 22;
+  --color-muted: 108 105 114;
+  --color-faint: 158 155 163;
+  color-scheme: light;
+}
+
+::selection {
+  background: rgb(var(--color-fg));
+  color: rgb(var(--color-ink));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: rgb(var(--color-ink));
+  color: rgb(var(--color-fg));
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid rgb(var(--color-fg));
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* thin custom scrollbar to keep the techy, deliberate feel */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: rgb(var(--color-ink));
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-hair));
+  border-radius: 999px;
+  border: 2px solid rgb(var(--color-ink));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-fg) / 0.3);
+}
+
+
+.horizontal-scrollbar::-webkit-scrollbar {
+  height: 10px;
+}
+
+.horizontal-scrollbar::-webkit-scrollbar-track {
+  background: rgb(var(--color-ink));
+}
+
+.horizontal-scrollbar::-webkit-scrollbar-thumb {
+  background: rgb(var(--color-hair));
+  border-radius: 999px;
+  border: 2px solid rgb(var(--color-ink));
+}
+
+.horizontal-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--color-fg) / 0.3);
+}
+
