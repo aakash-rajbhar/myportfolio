@@ -9,7 +9,7 @@ export default function Experience() {
   const c = content[lang];
 
   return (
-    <section id="work" className="relative mx-auto max-w-3xl py-20">
+    <section id="work" className="relative mx-auto max-w-3xl px-4 py-20">
       <SectionHeading
         index="01"
         title={c.sectionHeadings.work.title}

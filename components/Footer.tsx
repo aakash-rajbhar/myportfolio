@@ -16,7 +16,7 @@ export default function Footer() {
   const paragraph = c.footer.paragraph.replace("{location}", c.location);
 
   return (
-    <section id="contact" className="relative mx-auto max-w-3xl py-20">
+    <section id="contact" className="relative mx-auto max-w-3xl px-4 py-20">
       <Reveal>
         <div className="rounded-2xl border border-hair bg-surface/50 p-8 sm:p-12">
           <span className="font-mono text-xs text-muted">{c.footer.eyebrow}</span>

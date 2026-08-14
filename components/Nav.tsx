@@ -6,6 +6,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { content } from "@/lib/content";
 import ThemeToggle from "./ThemeToggle";
 import LanguageToggle from "./LanguageToggle";
+import Link from "next/link";
 
 const sectionIds = ["work", "projects", "stack", "education", "contact"] as const;
 
@@ -45,16 +46,16 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
       className="fixed inset-x-0 top-0 z-40 flex justify-center px-4 pt-4"
     >
       <div className="flex w-full max-w-3xl items-center justify-between gap-3 rounded-xl border border-hair bg-surface/80 px-4 py-2.5 backdrop-blur-md">
-        <a
-          href="#top"
+        <Link
+          href="/"
           className="shrink-0 font-mono text-[13px] tracking-tight text-fg transition-colors hover:text-fg"
         >
           aakash<span className="text-fg">.</span>rajbhar
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-5 md:flex">
           {sections.map((s) => (
-            <a
+            <Link
               key={s.id}
               href={`#${s.id}`}
               className={`relative font-mono text-[12px] uppercase tracking-wide transition-colors ${
@@ -68,7 +69,7 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
                   className="absolute -bottom-1 left-0 right-0 h-px bg-fg"
                 />
               )}
-            </a>
+            </Link>
           ))}
         </nav>
 

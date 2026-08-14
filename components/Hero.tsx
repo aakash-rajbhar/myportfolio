@@ -55,7 +55,7 @@ export default function Hero() {
                 WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
               }}
             />
-            <div className="absolute right-8 top-4 flex items-center gap-1 rounded-full border border-hair/80 bg-ink/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted backdrop-blur-sm">
+            <div className="absolute right-6 top-4 flex items-center gap-1 rounded-full border border-hair/80 bg-ink/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted backdrop-blur-sm">
               <Clock size={12} /> {clock}
             </div>
           </div>
