@@ -1,8 +1,11 @@
-'use client';
+"use client";
 
 import { useEffect, useState } from "react";
+import { useLenis } from "lenis/react";
 
 export default function ScrollIndicator() {
+  const lenis = useLenis();
+
   const [scrollPosition, setScrollPosition] = useState(0);
   const [isAtBottom, setIsAtBottom] = useState(false);
 
@@ -33,25 +36,17 @@ export default function ScrollIndicator() {
 
   const handleClick = () => {
     if (isAtTop) {
-      // Scroll down by roughly one viewport
-      window.scrollBy({
-        top: window.innerHeight * 0.7,
-        behavior: "smooth",
-      });
+      lenis?.scrollTo(window.innerHeight * 0.7);
     } else {
-      // At bottom → go to top
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
+      lenis?.scrollTo(0);
     }
   };
 
   return (
-    <div className="fixed right-4 bottom-4 z-50 animate-bounce">
+    <div className="fixed bottom-4 right-4 z-50 animate-bounce">
       <button
         onClick={handleClick}
-        className="rounded-full bg-ink/50 text-fg p-2"
+        className="rounded h-10 w-10 bg-surface text-fg p-2"
         aria-label={isAtTop ? "Scroll down" : "Scroll to top"}
       >
         {isAtTop ? "↓" : "↑"}

@@ -4,13 +4,13 @@
 
 /* Dark theme (default) */
 :root {
-  --color-ink: 12 12 14;
-  --color-surface: 20 19 23;
-  --color-surface-hi: 27 26 32;
-  --color-hair: 38 37 43;
-  --color-fg: 242 241 237;
-  --color-muted: 143 141 150;
-  --color-faint: 87 85 93;
+  --color-ink: 12 12 12;
+  --color-surface: 20 20 20;
+  --color-surface-hi: 28 28 28;
+  --color-hair: 40 40 40;
+  --color-fg: 242 242 240;
+  --color-muted: 145 145 145;
+  --color-faint: 90 90 90;
   color-scheme: dark;
 }
 
@@ -20,12 +20,11 @@ html.light {
   --color-surface: 255 255 255;
   --color-surface-hi: 237 236 231;
   --color-hair: 222 220 213;
-  --color-fg: 20 19 22;
-  --color-muted: 108 105 114;
-  --color-faint: 158 155 163;
+  --color-fg: 20 20 20;
+  --color-muted: 108 108 108;
+  --color-faint: 158 158 158;
   color-scheme: light;
 }
-
 ::selection {
   background: rgb(var(--color-fg));
   color: rgb(var(--color-ink));
@@ -83,7 +82,7 @@ body {
 
 
 .horizontal-scrollbar::-webkit-scrollbar {
-  height: 10px;
+  height: 4px;
 }
 
 .horizontal-scrollbar::-webkit-scrollbar-track {

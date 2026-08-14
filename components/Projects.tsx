@@ -10,7 +10,7 @@ export default function Projects() {
   const c = content[lang];
 
   return (
-    <section id="projects" className="relative mx-auto max-w-3xl px-6 py-20">
+    <section id="projects" className="relative mx-auto max-w-3xl py-20">
       <SectionHeading
         index="02"
         title={c.sectionHeadings.projects.title}

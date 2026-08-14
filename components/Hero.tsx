@@ -36,7 +36,7 @@ export default function Hero() {
     : "··:··:··";
 
   return (
-    <section id="top" className="relative px-6 pb-20 pt-28">
+    <section id="top" className="relative px-6 pb-20 pt-28 min-h-screen flex flex-col justify-center">
       <div className="mx-auto w-full max-w-3xl">
         {/* profile card -- banner + avatar, borrowing the shape of a social
             profile header but built entirely from resume facts */}
@@ -44,7 +44,7 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="overflow-hidden rounded-xl border border-hair bg-surface/50"
+          className="overflow-hidden rounded-xl border border-hair bg-ink/70"
         >
           {/* banner */}
           <div className="relative h-28 overflow-hidden bg-surface-hi sm:h-32">
@@ -55,7 +55,7 @@ export default function Hero() {
                 WebkitMaskImage: "linear-gradient(to bottom, black, transparent)",
               }}
             />
-            <div className="absolute right-4 top-4 flex items-center gap-1 rounded-full border border-hair/80 bg-ink/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted backdrop-blur-sm">
+            <div className="absolute right-8 top-4 flex items-center gap-1 rounded-full border border-hair/80 bg-ink/60 px-2.5 py-1 font-mono text-[10px] uppercase tracking-wide text-muted backdrop-blur-sm">
               <Clock size={12} /> {clock}
             </div>
           </div>

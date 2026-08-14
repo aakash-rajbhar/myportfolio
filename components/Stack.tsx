@@ -10,7 +10,7 @@ export default function Stack() {
   const c = content[lang];
 
   return (
-    <section id="stack" className="relative mx-auto max-w-3xl px-6 py-20">
+    <section id="stack" className="relative mx-auto max-w-3xl py-20">
       <SectionHeading index="03" title={c.sectionHeadings.stack.title} />
 
       <div className="grid gap-x-8 gap-y-8 sm:grid-cols-2">

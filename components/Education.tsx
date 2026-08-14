@@ -9,7 +9,7 @@ export default function Education() {
   const c = content[lang];
 
   return (
-    <section id="education" className="relative mx-auto max-w-3xl px-6 py-20">
+    <section id="education" className="relative mx-auto max-w-3xl py-20">
       <SectionHeading index="04" title={c.sectionHeadings.education.title} />
 
       <div className="grid gap-8 sm:grid-cols-2">
