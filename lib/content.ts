@@ -92,6 +92,13 @@ interface Content {
     noMatches: string;
     copiedLabel: string;
     commands: PaletteCommand[];
+    askAi: string;
+    askAiWithQuery: (query: string) => string;
+    chatPlaceholder: string;
+    thinking: string;
+    backToCommands: string;
+    chatError: string;
+    aiHint: string;
   };
   githubCalendar: {
     heading: string;
@@ -254,6 +261,13 @@ export const content: Record<Lang, Content> = {
         { id: "github", label: "Open GitHub", hint: "external" },
         { id: "linkedin", label: "Open LinkedIn", hint: "external" },
       ],
+      askAi: "Ask AI about me",
+      askAiWithQuery: (query) => `Ask AI — "${query}"`,
+      chatPlaceholder: "Ask anything about Aakash — experience, projects, stack…",
+      thinking: "Thinking…",
+      backToCommands: "Commands",
+      chatError: "Couldn't reach the assistant. Try again in a moment.",
+      aiHint: "ai",
     },
     githubCalendar: {
       heading: "GitHub activity",
@@ -414,6 +428,13 @@ export const content: Record<Lang, Content> = {
         { id: "github", label: "गिटहब खोलें", hint: "बाहरी लिंक" },
         { id: "linkedin", label: "लिंक्डइन खोलें", hint: "बाहरी लिंक" },
       ],
+      askAi: "मेरे बारे में AI से पूछें",
+      askAiWithQuery: (query) => `AI से पूछें — "${query}"`,
+      chatPlaceholder: "आकाश के बारे में कुछ भी पूछें — अनुभव, प्रोजेक्ट्स, स्टैक…",
+      thinking: "सोच रहा है…",
+      backToCommands: "कमांड्स",
+      chatError: "असिस्टेंट से संपर्क नहीं हो सका। थोड़ी देर में फिर कोशिश करें।",
+      aiHint: "एआई",
     },
     githubCalendar: {
       heading: "गिटहब गतिविधि",
