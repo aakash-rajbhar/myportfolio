@@ -147,7 +147,7 @@ export const content: Record<Lang, Content> = {
           "Built full-stack features across Next.js, React, TypeScript, Django and PostgreSQL, shipping REST APIs and wiring frontend to backend end to end.",
           "Integrated Stripe to enable secure, end-to-end payment workflows.",
           "Migrated 1 production application and deployed 3+ projects on AWS — EC2, RDS, S3 and Amplify.",
-          "Wrote 50+ unit and end-to-end tests with Jest and Playwright, raising release confidence.",
+          "Wrote 200+ unit and end-to-end tests with Jest and Playwright, raising release confidence.",
           "Wired up Sentry and PostHog for production monitoring, cutting time-to-detect on live issues.",
         ],
       },

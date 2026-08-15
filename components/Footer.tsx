@@ -37,13 +37,13 @@ export default function Footer() {
             >
               {copied ? c.footer.copiedLabel : profile.email}
             </button>
-            <Link
+            {/*<Link
               href={`tel:${profile.phone.replace(/\s/g, "")}`}
               target="_blank"
               className="rounded-full border border-hair px-5 py-2.5 font-mono text-[13px] text-fg transition-colors hover:border-fg/40"
             >
               {profile.phone}
-            </Link>
+            </Link>*/}
           </div>
 
           {/*<div className="mt-10 border-t border-hair pt-6">

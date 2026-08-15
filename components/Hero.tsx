@@ -12,7 +12,7 @@ export default function Hero() {
   const c = content[lang];
   const stats = [
     { value: "3", label: c.hero.statsLabels[0] },
-    { value: "2", label: c.hero.statsLabels[1] },
+    { value: "10+", label: c.hero.statsLabels[1] },
     { value: "200+", label: c.hero.statsLabels[2] },
     { value: "9.2", label: c.hero.statsLabels[3] },
   ];

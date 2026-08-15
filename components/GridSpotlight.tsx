@@ -43,7 +43,7 @@ export default function GridSpotlight() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-0">
       {/* faint always-on base grid */}
-      <div className="absolute inset-0 bg-grid-schema bg-[size:44px_44px] opacity-30" />
+      <div className="absolute inset-0 bg-grid-schema bg-[size:44px_44px] opacity-20" />
       {/* brighter grid, revealed only inside the cursor spotlight */}
       <div
         ref={ref}
