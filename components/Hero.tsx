@@ -4,12 +4,16 @@ import { motion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLoader } from "@/contexts/LoaderContext";
 import { content } from "@/lib/content";
 import { Clock } from "lucide-react";
+import Link from "next/link";
+import Tooltip from "./Tooltip";
 
 export default function Hero() {
   const { lang } = useLanguage();
   const c = content[lang];
+  const { ready } = useLoader();
   const stats = [
     { value: "3", label: c.hero.statsLabels[0] },
     { value: "10+", label: c.hero.statsLabels[1] },
@@ -202,7 +206,7 @@ export default function Hero() {
       <div className="mx-auto w-full max-w-3xl px-4">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
+          animate={ready ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
           className="overflow-hidden rounded-xl border border-hair bg-surface/50"
         >
@@ -249,7 +253,9 @@ export default function Hero() {
                 {c.name}
               </h1>
               <p className="mt-0.5 font-mono text-[13px] text-faint">
-                @aakash-rajbhar &middot; {c.location}
+                @aakash-rajbhar &middot; <Tooltip side="top" label={lang === "en" ? "Open in Google Maps" : "Google Maps में खोलें"}>
+                  <Link href='https://maps.app.goo.gl/j1c8w4GSibUTmxvQ7' target="_blank">{c.location}</Link>
+                </Tooltip>
               </p>
             </div>
 

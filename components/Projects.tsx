@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { content } from "@/lib/content";
 import { Reveal, SectionHeading } from "./Reveal";
 import Link from "next/link";
+import Tooltip from "./Tooltip";
 
 export default function Projects() {
   const { lang } = useLanguage();
@@ -24,13 +25,17 @@ export default function Projects() {
               <div className="flex items-start justify-between gap-3">
                 <h3 className="font-display text-xl font-medium text-fg">{p.name}</h3>
                 <div className="flex shrink-0 gap-2 font-mono text-[11px] text-muted">
-                  <Link href={p.links.code} target="_blank" className="transition-colors hover:text-fg">
-                    {p.labels.code}
-                  </Link>
+                  <Tooltip label={lang === "en" ? "Open GitHub Code" : "GitHub कोड खोलें"}>
+                    <Link href={p.links.code} target="_blank" className="transition-colors hover:text-fg">
+                      {p.labels.code}
+                    </Link>
+                  </Tooltip>
                   <span className="text-hair">/</span>
-                  <Link href={p.links.demo} target="_blank" className="transition-colors hover:text-fg">
-                    {p.labels.demo}
-                  </Link>
+                  <Tooltip label={lang === "en" ? "Check live demo" : "लाइव डेमो देखें"}>
+                    <Link href={p.links.demo} target="_blank" className="transition-colors hover:text-fg">
+                      {p.labels.demo}
+                    </Link>
+                  </Tooltip>
                 </div>
               </div>
 

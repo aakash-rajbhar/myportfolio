@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { motion } from "motion/react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useLoader } from "@/contexts/LoaderContext";
 import { content } from "@/lib/content";
 import ThemeToggle from "./ThemeToggle";
 import LanguageToggle from "./LanguageToggle";
@@ -13,6 +14,7 @@ const sectionIds = ["work", "projects", "stack", "education", "contact"] as cons
 export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
   const { lang } = useLanguage();
   const c = content[lang];
+  const { ready } = useLoader();
   const [active, setActive] = useState<string>("");
   const [isMac, setIsMac] = useState(true);
 
@@ -41,7 +43,7 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
   return (
     <motion.header
       initial={{ y: -24, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
+      animate={ready ? { y: 0, opacity: 1 } : { y: -24, opacity: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
       className="sticky inset-x-0 top-0 z-40 flex justify-center pt-4"
     >

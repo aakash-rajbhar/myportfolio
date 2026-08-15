@@ -1,16 +1,20 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { createPortal } from "react-dom";
-import { AnimatePresence, motion } from "motion/react";
+import { useEffect, useRef, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { content } from "@/lib/content";
+import Tooltip from "./Tooltip";
 
 type Day = { date: string; count: number; level: number };
 
 const LEVEL_COLOR = ["bg-hair", "bg-fg/25", "bg-fg/50", "bg-fg/75", "bg-fg"];
 
-type Tip = { count: number; dateLabel: string; x: number; y: number };
+function formatDate(date: string, lang: string) {
+  return new Date(date + "T00:00:00").toLocaleDateString(
+    lang === "hi" ? "hi-IN" : "en-US",
+    { month: "short", day: "numeric", year: "numeric" }
+  );
+}
 
 export default function GithubCalendar() {
   const { lang } = useLanguage();
@@ -18,10 +22,8 @@ export default function GithubCalendar() {
 
   const [days, setDays] = useState<Day[] | null>(null);
   const [failed, setFailed] = useState(false);
-  const [tip, setTip] = useState<Tip | null>(null);
 
   const scrollRef = useRef<HTMLDivElement>(null);
-  const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -53,53 +55,6 @@ export default function GithubCalendar() {
       container.scrollLeft = container.scrollWidth;
     });
   }, [days]);
-
-  const showTip = (e: React.MouseEvent<HTMLDivElement>, day: Day) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const d = new Date(day.date + "T00:00:00");
-    const dateLabel = d.toLocaleDateString(lang === "hi" ? "hi-IN" : "en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-
-    setTip({
-      count: day.count,
-      dateLabel,
-      x: rect.left + rect.width / 2,
-      y: rect.top - 8,
-    });
-  };
-
-  // Hide the tooltip whenever the window or the calendar scrolls, so it never
-  // lingers at stale coordinates.
-  useEffect(() => {
-    if (!tip) return;
-    const hide = () => setTip(null);
-    window.addEventListener("scroll", hide, true);
-    return () => window.removeEventListener("scroll", hide, true);
-  }, [tip]);
-
-  // Keep the tooltip inside the viewport (it is centered on the hovered cell).
-  useLayoutEffect(() => {
-    if (!tip || !tooltipRef.current) return;
-
-    const el = tooltipRef.current;
-    const pad = 8;
-    const half = el.getBoundingClientRect().width / 2;
-    const left = Math.min(
-      Math.max(tip.x, half + pad),
-      window.innerWidth - half - pad
-    );
-
-    el.style.left = `${left}px`;
-  }, [tip]);
-
-  const tipText = tip
-    ? lang === "hi"
-      ? `${tip.count} योगदान · ${tip.dateLabel}`
-      : `${tip.count} contribution${tip.count === 1 ? "" : "s"} · ${tip.dateLabel}`
-    : "";
 
   if (failed) return null;
 
@@ -162,10 +117,9 @@ export default function GithubCalendar() {
   return (
     <div>
       <div className="flex items-baseline justify-between">
-          <h3 className="font-mono text-xs uppercase tracking-wide text-muted">
-            {c.githubCalendar.heading}
-          </h3>
-          
+        <h3 className="font-mono text-xs uppercase tracking-wide text-muted">
+          {c.githubCalendar.heading}
+        </h3>
 
         <span className="font-mono text-[11px] text-faint">
           {c.githubCalendar.subtitle(total)}
@@ -207,12 +161,20 @@ export default function GithubCalendar() {
                       className="h-[14px] w-[14px]"
                     />
                   ) : (
-                    <div
+                    <Tooltip
                       key={day.date}
-                      onMouseEnter={(e) => showTip(e, day)}
-                      onMouseLeave={() => setTip(null)}
-                      className={`h-[14px] w-[14px] cursor-pointer ${LEVEL_COLOR[day.level]}`}
-                    />
+                      portal
+                      side="top"
+                      label={
+                        lang === "hi"
+                          ? `${day.count} योगदान · ${formatDate(day.date, lang)}`
+                          : `${day.count} contribution${day.count === 1 ? "" : "s"} · ${formatDate(day.date, lang)}`
+                      }
+                    >
+                      <div
+                        className={`h-[14px] w-[14px] cursor-pointer ${LEVEL_COLOR[day.level]}`}
+                      />
+                    </Tooltip>
                   )
                 )}
               </div>
@@ -224,7 +186,7 @@ export default function GithubCalendar() {
         <span className="font-mono text-[9px] uppercase tracking-wider text-faint">
           Low
         </span>
-      
+
         <div className="flex items-center gap-[2px]">
           {LEVEL_COLOR.map((color, index) => (
             <span
@@ -233,41 +195,11 @@ export default function GithubCalendar() {
             />
           ))}
         </div>
-      
+
         <span className="font-mono text-[9px] uppercase tracking-wider text-faint">
           High
         </span>
       </div>
-
-      {typeof document !== "undefined" &&
-        createPortal(
-          <AnimatePresence>
-            {tip && (
-              <div
-                ref={tooltipRef}
-                style={{
-                  top: tip.y,
-                  left: tip.x,
-                  transform: "translate(-50%, -100%)",
-                }}
-                className="pointer-events-none fixed z-50"
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: -4, scale: 0.95 }}
-                  animate={{ opacity: 1, y: 0, scale: 1 }}
-                  exit={{ opacity: 0, y: -4, scale: 0.95 }}
-                  transition={{ duration: 0.15, ease: [0.16, 1, 0.3, 1] }}
-                >
-                  <div className="relative whitespace-nowrap rounded-md border border-hair bg-surface/95 px-2.5 py-1.5 font-mono text-[11px] text-fg shadow-lg shadow-black/40 backdrop-blur-sm">
-                    {tipText}
-                    <span className="absolute -bottom-[3px] left-1/2 h-1.5 w-1.5 -translate-x-1/2 rotate-45 border-b border-r border-hair bg-surface/95" />
-                  </div>
-                </motion.div>
-              </div>
-            )}
-          </AnimatePresence>,
-          document.body
-        )}
     </div>
   );
 }

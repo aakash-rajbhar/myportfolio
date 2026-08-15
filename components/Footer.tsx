@@ -19,7 +19,7 @@ export default function Footer() {
   return (
     <section id="contact" className="relative mx-auto max-w-3xl px-4 py-20">
       <Reveal>
-        <div className="rounded-2xl border border-hair bg-surface/50 p-8 sm:p-12">
+        <div className="rounded-xl border border-hair bg-surface/50 p-8 sm:p-12">
           <span className="font-mono text-xs text-muted">{c.footer.eyebrow}</span>
           <h2 className="mt-3 text-balance font-display text-3xl font-medium tracking-tight text-fg sm:text-4xl">
             {c.footer.heading}

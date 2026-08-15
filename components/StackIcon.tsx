@@ -66,5 +66,5 @@ const iconMap: Record<string, React.ElementType> = {
 export function StackIcon({ name, size = 14, className }: { name: string; size?: number; className?: string }) {
   const Icon: React.ElementType = iconMap[name];
   if (!Icon) return null;
-  return <Icon size={size} className={className} />;
+  return <Icon size={size} className={className} alt={name} />;
 }
