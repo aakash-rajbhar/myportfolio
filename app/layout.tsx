@@ -70,9 +70,9 @@ export const metadata: Metadata = {
   // TODO: after adding your site in Google Search Console, it'll give you
   // a verification code — paste it below instead of using a separate
   // HTML file for verification.
-  // verification: {
-  //   google: "PASTE_YOUR_VERIFICATION_CODE_HERE",
-  // },
+  verification: {
+    google: "4k5emh_tpXprL6vhS7cdecthLc1sYQv5a4qGWLO3fF8",
+  },
 };
 export default function RootLayout({
   children,
