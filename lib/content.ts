@@ -106,7 +106,7 @@ export const content: Record<Lang, Content> = {
     name: "Aakash Rajbhar",
     role: "Full-Stack Web Developer",
     tagline:
-      "Building full-stack products with Next.js, React and Django — from schema to shipped.",
+      "Building full-stack products with Next.js, React and Node.js — from schema to shipped.",
     location: "Faridabad, Haryana, India",
     nav: {
       work: "Work",
@@ -118,7 +118,7 @@ export const content: Record<Lang, Content> = {
     hero: {
       badge: "open to work",
       diffPlus1: "full-stack, end to end — frontend, backend, tests, monitoring",
-      diffPlus2: "3 internships, 2 shipped products, one production migration",
+      diffPlus2: "3 internships, 10+ shipped products, one production migration",
       diffMinus: "yet another unfinished to-do app portfolio",
       bioBefore: "Currently building at ",
       bioCompany: "WhatBytes",
@@ -266,7 +266,7 @@ export const content: Record<Lang, Content> = {
     name: "आकाश राजभर",
     role: "फुल-स्टैक वेब डेवलपर",
     tagline:
-      "Next.js, React और Django के साथ फुल-स्टैक प्रोडक्ट बनाना — स्कीमा से लेकर लॉन्च तक।",
+      "Next.js, React और Node.js के साथ फुल-स्टैक प्रोडक्ट बनाना — स्कीमा से लेकर लॉन्च तक।",
     location: "फरीदाबाद, हरियाणा, भारत",
     nav: {
       work: "अनुभव",

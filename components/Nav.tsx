@@ -43,9 +43,9 @@ export default function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
       initial={{ y: -24, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      className="sticky inset-x-0 top-0 z-40 flex justify-center px-4 pt-4"
+      className="sticky inset-x-0 top-0 z-40 flex justify-center pt-4"
     >
-      <div className="w-full max-w-3xl px-4 ">
+      <div className="w-full max-w-3xl px-4">
         
       
       <div className="flex w-full items-center justify-between gap-3 rounded-xl border border-hair bg-surface/80 px-4 py-2.5 backdrop-blur-md">

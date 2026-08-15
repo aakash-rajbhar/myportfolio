@@ -52,93 +52,138 @@ export default function Hero() {
       "ABCDEFabcdef" +
       ":•▓▒░■□▪▫";
     const fontSize = 14;
+    const FRAME_INTERVAL = 1000 / 10; // throttle to a steady ~100fps
 
     let width = 0;
     let height = 0;
     let columns = 0;
     let drops: number[] = [];
-    let dpr = 1;
+    let raf = 0;
+    let running = false;
+    let lastFrame = 0;
+    let lastHover: boolean | null = null;
+
+    // theme colors only change when the `.light` class flips, so watch for
+    // that once instead of calling getComputedStyle() on every frame.
+    const theme = { fg: "34 197 94", ink: "10 10 10" };
+    let trailStyle = "";
+    let headStyle = "";
+    let tailStyle = "";
+
+    const syncTheme = () => {
+      const style = getComputedStyle(document.documentElement);
+      theme.fg = style.getPropertyValue("--color-fg").trim() || "34 197 94";
+      theme.ink = style.getPropertyValue("--color-ink").trim() || "10 10 10";
+      lastHover = null; // restyle on the next frame
+      // wipe the buffered pixels right away so the canvas switches at the
+      // same instant as the CSS variables everywhere else
+      ctx.fillStyle = `rgb(${theme.ink})`;
+      ctx.fillRect(0, 0, width, height);
+    };
+    const themeObserver = new MutationObserver(syncTheme);
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+    syncTheme();
+
+    const syncStyles = () => {
+      const hovered = hoveredRef.current;
+      trailStyle = `rgb(${theme.ink} / ${hovered ? 0.08 : 0.12})`;
+      headStyle = `rgb(${theme.fg} / ${hovered ? 0.9 : 0.6})`;
+      tailStyle = `rgb(${theme.fg} / ${hovered ? 0.28 : 0.16})`;
+    };
 
     const resize = () => {
       const parent = canvas.parentElement;
       if (!parent) return;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // cap DPR lower on touch devices to keep the fill-rate light
+      const coarse = window.matchMedia("(pointer: coarse)").matches;
+      const dpr = Math.min(window.devicePixelRatio || 1, coarse ? 1.5 : 2);
       width = parent.clientWidth;
       height = parent.clientHeight;
-      canvas.width = width * dpr;
-      canvas.height = height * dpr;
+      canvas.width = Math.round(width * dpr);
+      canvas.height = Math.round(height * dpr);
       canvas.style.width = `${width}px`;
       canvas.style.height = `${height}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
       columns = Math.ceil(width / fontSize);
       drops = new Array(columns).fill(0).map(() => Math.random() * -40);
+      ctx.fillStyle = `rgb(${theme.ink})`;
+      ctx.fillRect(0, 0, width, height);
     };
+
+    const draw = () => {
+      if (lastHover !== hoveredRef.current) {
+        lastHover = hoveredRef.current;
+        syncStyles();
+      }
+
+      ctx.fillStyle = trailStyle;
+      ctx.fillRect(0, 0, width, height);
+
+      ctx.font = `${fontSize}px monospace`;
+      for (let i = 0; i < columns; i++) {
+        const char = glyphs[(Math.random() * glyphs.length) | 0];
+        const x = i * fontSize;
+        const y = drops[i] * fontSize;
+
+        // bright leading glyph
+        ctx.fillStyle = headStyle;
+        ctx.fillText(char, x, y);
+
+        // dimmer trailing glyph just above it for a bit of glow
+        if (y - fontSize > 0) {
+          ctx.fillStyle = tailStyle;
+          ctx.fillText(
+            glyphs[(Math.random() * glyphs.length) | 0],
+            x,
+            y - fontSize
+          );
+        }
+
+        if (y > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i] += 1;
+      }
+    };
+
+    const loop = (time: number) => {
+      if (!running) return;
+      raf = requestAnimationFrame(loop);
+      if (time - lastFrame < FRAME_INTERVAL) return;
+      lastFrame = time;
+      draw();
+    };
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      lastFrame = 0;
+      raf = requestAnimationFrame(loop);
+    };
+
+    const stop = () => {
+      running = false;
+      cancelAnimationFrame(raf);
+    };
+
+    // pause the rain entirely when the hero scrolls out of view
+    const visibilityObserver = new IntersectionObserver(
+      ([entry]) => (entry.isIntersecting ? start() : stop()),
+      { threshold: 0 }
+    );
+    visibilityObserver.observe(canvas);
 
     resize();
     window.addEventListener("resize", resize);
 
-    // read the theme's --color-fg / --color-ink so the rain matches
-        // light/dark mode. Canvas fillStyle can't parse var(...) directly,
-        // so resolve them to real numbers here.
-        const getThemeColor = (varName: string, fallback: string) => {
-          const style = getComputedStyle(canvas.parentElement || canvas);
-          const value = style.getPropertyValue(varName).trim();
-          return value || fallback;
-        };
-    
-        let frame = 0;
-        let raf: number;
-    
-        const draw = () => {
-          raf = requestAnimationFrame(draw);
-          frame++;
-          // throttle to ~20fps for a calmer, more legible rain
-          if (frame % 20 !== 0) return;
-    
-          const fg = getThemeColor("--color-fg", "34 197 94");
-          const ink = getThemeColor("--color-ink", "10 10 10");
-          const trailAlpha = hoveredRef.current ? 0.08 : 0.12;
-    
-          ctx.fillStyle = `rgb(${ink} / ${trailAlpha})`;
-          ctx.fillRect(0, 0, width, height);
-    
-          ctx.font = `${fontSize}px monospace`;
-          const headOpacity = hoveredRef.current ? 0.9 : 0.6;
-          const tailOpacity = hoveredRef.current ? 0.28 : 0.16;
-    
-          for (let i = 0; i < columns; i++) {
-            const char = glyphs[Math.floor(Math.random() * glyphs.length)];
-            const x = i * fontSize;
-            const y = drops[i] * fontSize;
-    
-            // bright leading glyph
-            ctx.fillStyle = `rgb(${fg} / ${headOpacity})`;
-            ctx.fillText(char, x, y);
-    
-            // dimmer trailing glyph just above it for a bit of glow
-            if (y - fontSize > 0) {
-              ctx.fillStyle = `rgb(${fg} / ${tailOpacity})`;
-              ctx.fillText(
-                glyphs[Math.floor(Math.random() * glyphs.length)],
-                x,
-                y - fontSize
-              );
-            }
-    
-            if (y > height && Math.random() > 0.975) {
-              drops[i] = 0;
-            }
-            drops[i] += 1;
-          }
-        };
-    
-        ctx.fillStyle = `rgb(${getThemeColor("--color-ink", "10 10 10")})`;
-        ctx.fillRect(0, 0, width, height);
-        raf = requestAnimationFrame(draw);
-
     return () => {
-      cancelAnimationFrame(raf);
+      stop();
+      themeObserver.disconnect();
+      visibilityObserver.disconnect();
       window.removeEventListener("resize", resize);
     };
   }, []);
@@ -153,7 +198,7 @@ export default function Hero() {
     : "··:··:··";
 
   return (
-    <section id="top" className="relative px-6 pb-20 pt-8 sm:pt-10 flex flex-col justify-center">
+    <section id="top" className="relative pb-20 pt-8 sm:pt-10 flex flex-col justify-center">
       <div className="mx-auto w-full max-w-3xl px-4">
         <motion.div
           initial={{ opacity: 0, y: 16 }}
