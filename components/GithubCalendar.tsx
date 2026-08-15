@@ -6,7 +6,7 @@ import { content } from "@/lib/content";
 
 type Day = { date: string; count: number; level: number };
 
-const LEVEL_COLOR = ["bg-hair", "bg-fg/20", "bg-fg/45", "bg-fg/75", "bg-fg"];
+const LEVEL_COLOR = ["bg-hair", "bg-fg/25", "bg-fg/50", "bg-fg/75", "bg-fg"];
 
 export default function GithubCalendar() {
   const { lang } = useLanguage();
@@ -112,24 +112,6 @@ export default function GithubCalendar() {
           <h3 className="font-mono text-xs uppercase tracking-wide text-muted">
             {c.githubCalendar.heading}
           </h3>
-          <div className="flex items-center gap-2">
-            <span className="font-mono text-[9px] uppercase tracking-wider text-faint">
-              Low
-            </span>
-          
-            <div className="flex items-center gap-[2px]">
-              {LEVEL_COLOR.map((color, index) => (
-                <span
-                  key={index}
-                  className={`h-[10px] w-[10px] ${color}`}
-                />
-              ))}
-            </div>
-          
-            <span className="font-mono text-[9px] uppercase tracking-wider text-faint">
-              High
-            </span>
-          </div>
           
 
         <span className="font-mono text-[11px] text-faint">
@@ -185,6 +167,24 @@ export default function GithubCalendar() {
             ))}
           </div>
         </div>
+      </div>
+      <div className="flex items-center justify-end gap-2 mt-2">
+        <span className="font-mono text-[9px] uppercase tracking-wider text-faint">
+          Low
+        </span>
+      
+        <div className="flex items-center gap-[2px]">
+          {LEVEL_COLOR.map((color, index) => (
+            <span
+              key={index}
+              className={`h-[10px] w-[10px] ${color}`}
+            />
+          ))}
+        </div>
+      
+        <span className="font-mono text-[9px] uppercase tracking-wider text-faint">
+          High
+        </span>
       </div>
     </div>
   );

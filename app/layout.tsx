@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Inter, JetBrains_Mono, Noto_Sans_Devanagari } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Providers from "@/components/Providers";
 
@@ -19,14 +19,6 @@ const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   weight: ["400", "500"],
-});
-
-// Fallback for Devanagari glyphs, which none of the fonts above cover —
-// the browser reaches for this automatically wherever Hindi text appears.
-const devanagari = Noto_Sans_Devanagari({
-  subsets: ["devanagari"],
-  variable: "--font-devanagari",
-  weight: ["400", "500", "600"],
 });
 
 export const metadata: Metadata = {
@@ -50,11 +42,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html
-      lang="en"
-      className={`${display.variable} ${body.variable} ${mono.variable} ${devanagari.variable}`}
-    >
+    <html lang="en" className={`${display.variable} ${body.variable} ${mono.variable}`}>
       <head>
+        {/* Poppins covers Devanagari glyphs, so it serves as the fallback font
+            wherever Hindi text appears. Loaded via CSS (not next/font) because
+            this Next version's Poppins font data only ships latin subsets. */}
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap"
+        />
         {/* Blocking script: applies the saved/system theme before paint so
             there's no flash of the wrong theme on load. */}
         <script

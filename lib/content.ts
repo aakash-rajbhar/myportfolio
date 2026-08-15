@@ -217,7 +217,7 @@ export const content: Record<Lang, Content> = {
       { label: "Backend", items: ["Node.js", "Express.js", "Django", "REST APIs", "JWT"] },
       { label: "Database", items: ["MongoDB", "MySQL", "PostgreSQL"] },
       { label: "Tools", items: ["Git/GitHub", "Docker", "AWS", "CI/CD", "Prisma", "Stripe", "Sentry", "Jest"] },
-      { label: "Practice", items: ["OOP", "Data Structures", "Algorithms", "Agile", "Design Patterns", "Web Vitals"] },
+      { label: "Others", items: ["OOP", "Data Structures", "Algorithms", "Agile", "Design Patterns", "Web Vitals"] },
     ],
     education: {
       school: "Guru Gobind Singh Indraprastha University",
@@ -276,7 +276,7 @@ export const content: Record<Lang, Content> = {
       contact: "संपर्क",
     },
     hero: {
-      badge: "नौकरी के लिए उपलब्ध",
+      badge: "काम के लिए उपलब्ध",
       diffPlus1: "फुल-स्टैक, शुरू से आख़िर तक — फ्रंटएंड, बैकएंड, टेस्ट्स, मॉनिटरिंग",
       diffPlus2: "3 इंटर्नशिप, 2 लॉन्च प्रोडक्ट्स, एक प्रोडक्शन माइग्रेशन",
       diffMinus: "एक और अधूरा टू-डू ऐप पोर्टफोलियो नहीं",
@@ -377,7 +377,7 @@ export const content: Record<Lang, Content> = {
       { label: "बैकएंड", items: ["Node.js", "Express.js", "Django", "REST APIs", "JWT"] },
       { label: "डेटाबेस", items: ["MongoDB", "MySQL", "PostgreSQL"] },
       { label: "टूल्स", items: ["Git/GitHub", "Docker", "AWS", "CI/CD", "Prisma", "Stripe", "Sentry", "Jest"] },
-      { label: "अभ्यास", items: ["OOP", "Data Structures", "Algorithms", "Agile", "Design Patterns", "Web Vitals"] },
+      { label: "अन्य", items: ["OOP", "Data Structures", "Algorithms", "Agile", "Design Patterns", "Web Vitals"] },
     ],
     education: {
       school: "गुरु गोबिंद सिंह इंद्रप्रस्थ विश्वविद्यालय",

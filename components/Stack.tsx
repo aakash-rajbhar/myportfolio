@@ -4,6 +4,7 @@ import { useLanguage } from "@/contexts/LanguageContext";
 import { content } from "@/lib/content";
 import { Reveal, SectionHeading } from "./Reveal";
 import GithubCalendar from "./GithubCalendar";
+import { StackIcon } from "./StackIcon";
 
 export default function Stack() {
   const { lang } = useLanguage();
@@ -24,8 +25,9 @@ export default function Stack() {
                 {group.items.map((item) => (
                   <span
                     key={item}
-                    className="rounded-md border border-hair px-2.5 py-1 text-[13px] text-muted transition-colors hover:border-fg/30 hover:text-fg"
+                    className="flex items-center gap-1.5 rounded-md border border-hair px-2.5 py-1 text-[13px] text-muted transition-colors hover:border-fg/30 hover:text-fg"
                   >
+                    <StackIcon name={item} className="shrink-0" />
                     {item}
                   </span>
                 ))}

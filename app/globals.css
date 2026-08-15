@@ -11,6 +11,7 @@
   --color-fg: 242 242 240;
   --color-muted: 145 145 145;
   --color-faint: 90 90 90;
+  --font-devanagari: "Poppins", "Noto Sans Devanagari", sans-serif;
   color-scheme: dark;
 }
 

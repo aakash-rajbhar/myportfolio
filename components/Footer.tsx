@@ -7,6 +7,7 @@ import { content } from "@/lib/content";
 import { Reveal } from "./Reveal";
 import GithubCalendar from "./GithubCalendar";
 import Link from "next/link";
+import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 export default function Footer() {
   const { lang } = useLanguage();
@@ -50,11 +51,11 @@ export default function Footer() {
           </div>*/}
 
           <div className="mt-8 flex flex-wrap gap-5 border-t border-hair pt-6 font-mono text-xs text-muted">
-            <Link href={profile.links.github} target="_blank" className="transition-colors hover:text-fg">
-              {c.footer.socialGithub}
+            <Link href={profile.links.github} target="_blank" className="flex items-center gap-1 transition-colors hover:text-fg">
+              <FaGithub className="shrink-0" /> {c.footer.socialGithub}
             </Link>
-            <Link href={profile.links.linkedin} target="_blank" className="transition-colors hover:text-fg">
-              {c.footer.socialLinkedin}
+            <Link href={profile.links.linkedin} target="_blank" className="flex items-center gap-1 transition-colors hover:text-fg">
+              <FaLinkedin className="shrink-0"/> {c.footer.socialLinkedin}
             </Link>
             {/*<Link href={profile.links.site} target="_blank" className="transition-colors hover:text-fg">
               aakashrajbhar.vercel.app ↗

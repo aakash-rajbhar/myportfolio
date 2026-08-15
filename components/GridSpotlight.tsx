@@ -50,12 +50,12 @@ export default function GridSpotlight() {
         className="absolute inset-0 bg-grid-schema bg-[size:44px_44px]"
         style={
           {
-            "--spot-x": "50%",
-            "--spot-y": "30%",
+            "--spot-x": "70%",
+            "--spot-y": "50%",
             maskImage:
-              "radial-gradient(560px circle at var(--spot-x) var(--spot-y), black, transparent 75%)",
+              "radial-gradient(360px circle at var(--spot-x) var(--spot-y), black, transparent 75%)",
             WebkitMaskImage:
-              "radial-gradient(560px circle at var(--spot-x) var(--spot-y), black, transparent 75%)",
+              "radial-gradient(360px circle at var(--spot-x) var(--spot-y), black, transparent 75%)",
             filter: "brightness(2.4)",
           } as React.CSSProperties
         }
