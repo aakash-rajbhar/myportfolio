@@ -238,7 +238,7 @@ export const content: Record<Lang, Content> = {
       ],
     },
     footer: {
-      eyebrow: "05 / Contact",
+      eyebrow: "Contact",
       heading: "Open to full-stack roles and interesting builds.",
       paragraph:
         "Based in {location}. Fastest way to reach me is email — I usually reply within a day.",
@@ -405,7 +405,7 @@ export const content: Record<Lang, Content> = {
       ],
     },
     footer: {
-      eyebrow: "05 / संपर्क",
+      eyebrow: "संपर्क",
       heading: "फुल-स्टैक भूमिकाओं और दिलचस्प प्रोजेक्ट्स के लिए उपलब्ध।",
       paragraph:
         "{location} में स्थित हूं। मुझसे संपर्क का सबसे तेज़ तरीका ईमेल है — मैं आमतौर पर एक दिन में जवाब देता हूं।",

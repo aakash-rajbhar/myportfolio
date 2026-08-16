@@ -8,6 +8,7 @@ import { Reveal } from "./Reveal";
 import GithubCalendar from "./GithubCalendar";
 import Link from "next/link";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
+import Tooltip from "./Tooltip";
 
 export default function Footer() {
   const { lang } = useLanguage();
@@ -27,16 +28,18 @@ export default function Footer() {
           <p className="mt-4 max-w-lg text-[15px] leading-relaxed text-muted">{paragraph}</p>
 
           <div className="mt-8 flex flex-wrap items-center gap-3">
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(profile.email);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 1800);
-              }}
-              className="rounded-full bg-fg px-5 py-2.5 font-mono text-[13px] text-ink transition-transform hover:scale-[1.03] active:scale-[0.98]"
-            >
-              {copied ? c.footer.copiedLabel : profile.email}
-            </button>
+           <Tooltip label={lang === "en" ? "Copy email" : "ईमेल कॉपी करें"} >
+             <button
+               onClick={() => {
+                 navigator.clipboard.writeText(profile.email);
+                 setCopied(true);
+                 setTimeout(() => setCopied(false), 1800);
+               }}
+               className="rounded-full bg-fg px-5 py-2.5 font-mono text-[13px] text-ink transition-transform hover:scale-[1.03] active:scale-[0.98]"
+             >
+               {copied ? c.footer.copiedLabel : profile.email}
+             </button>
+           </Tooltip>
             {/*<Link
               href={`tel:${profile.phone.replace(/\s/g, "")}`}
               target="_blank"

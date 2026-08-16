@@ -15,7 +15,7 @@ export default function Projects() {
       <SectionHeading
         index="02"
         title={c.sectionHeadings.projects.title}
-        // note={c.sectionHeadings.projects.note}
+        note={c.sectionHeadings.projects.note}
       />
 
       <div className="grid gap-5 sm:grid-cols-2">

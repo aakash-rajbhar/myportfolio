@@ -7,10 +7,10 @@
   --color-ink: 12 12 12;
   --color-surface: 20 20 20;
   --color-surface-hi: 28 28 28;
-  --color-hair: 40 40 40;
+  --color-hair: 48 48 48;
   --color-fg: 242 242 240;
-  --color-muted: 145 145 145;
-  --color-faint: 90 90 90;
+  --color-muted: 155 155 155;
+  --color-faint: 115 115 115;
   --font-devanagari: "Poppins", "Noto Sans Devanagari", sans-serif;
   color-scheme: dark;
 }
@@ -20,10 +20,10 @@ html.light {
   --color-ink: 246 245 242;
   --color-surface: 255 255 255;
   --color-surface-hi: 237 236 231;
-  --color-hair: 222 220 213;
+  --color-hair: 210 208 200;
   --color-fg: 20 20 20;
-  --color-muted: 108 108 108;
-  --color-faint: 158 158 158;
+  --color-muted: 80 80 80;
+  --color-faint: 110 110 110;
   color-scheme: light;
 }
 ::selection {
