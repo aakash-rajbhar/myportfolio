@@ -2,7 +2,7 @@
 // Everything a visitor reads as prose lives in lib/content.ts instead.
 export const profile = {
   name: "Aakash Rajbhar",
-  email: "akash.kumarajbhar@gmail.com",
+  email: "theaakashrajbhar@gmail.com",
   phone: "+91 9311687306",
   links: {
     github: "https://github.com/aakash-rajbhar",

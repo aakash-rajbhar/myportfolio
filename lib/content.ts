@@ -145,7 +145,7 @@ export const content: Record<Lang, Content> = {
       {
         id: "whatbytes",
         company: "WhatBytes",
-        role: "Web Developer Intern",
+        role: "Software Devloper Intern",
         location: "Remote",
         duration: "Current",
         period: "Feb 2026 — Present",
@@ -161,7 +161,7 @@ export const content: Record<Lang, Content> = {
       {
         id: "razorpod",
         company: "Razorpod",
-        role: "Web Developer Intern",
+        role: "Software Developer Intern",
         location: "On-site — Gurugram",
         duration: "4 mo",
         period: "Jul 2025 — Oct 2025",
